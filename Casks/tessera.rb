@@ -18,6 +18,8 @@ cask "tessera" do
     strategy :github_latest
   end
 
+  depends_on :macos
+
   app "Tessera.app"
 
   zap trash: [
