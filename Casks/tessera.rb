@@ -10,7 +10,7 @@ cask "tessera" do
   url "https://github.com/ahmmedrejowan/tessera/releases/download/v#{version}/Tessera-#{version}-mac-#{arch}.dmg",
       verified: "github.com/ahmmedrejowan/tessera/"
   name "Tessera"
-  desc "A desktop library for game assets, with their licences and sources on record"
+  desc "Desktop library for game assets, with their licences and sources on record"
   homepage "https://github.com/ahmmedrejowan/tessera"
 
   livecheck do
@@ -18,7 +18,7 @@ cask "tessera" do
     strategy :github_latest
   end
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "Tessera.app"
 
