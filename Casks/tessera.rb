@@ -1,9 +1,9 @@
 cask "tessera" do
   arch arm: "arm64", intel: "x64"
 
-  version "1.0.0"
-  sha256 arm:   "4c29d4fb8b56b3ff9b80708ca2a871e90542b56e80662ea25a11027bf2735aab",
-         intel: "804c66fe5c1aceb78a69efabc3e5be8c1f60d989b0ef9034d23a3f0b685640b6"
+  version "1.0.1"
+  sha256 arm:   "a0344f961eac2297de6e4c61d7b3aeb7f9d7a4cc388a972640cbc8af6b41583d",
+         intel: "027ad1831f65f30ca32ea8ad88c9c3c316899635f32060057dc70692ea7fa27f"
 
   url "https://github.com/ahmmedrejowan/tessera/releases/download/v#{version}/Tessera-#{version}-mac-#{arch}.dmg"
   name "Tessera"
@@ -18,6 +18,16 @@ cask "tessera" do
   depends_on :macos
 
   app "Tessera.app"
+
+  # Homebrew quarantines what it installs, and these builds are signed ad-hoc rather than with a
+  # paid certificate, so Gatekeeper would stop the first launch exactly as it does for someone who
+  # downloaded the dmg by hand. Taking the flag off here is what makes installing through Homebrew
+  # worth recommending: it is the one route that does not send a person to Privacy & Security.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/Tessera.app"],
+                   sudo: false
+  end
 
   zap trash: [
     "~/Library/Application Support/Tessera",
